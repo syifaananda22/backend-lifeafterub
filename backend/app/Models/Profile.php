@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    // Biar bisa insert/update massal
     protected $fillable = [
         'user_id',
         'nama',
@@ -15,7 +14,6 @@ class Profile extends Model
         'tahun_masuk'
     ];
 
-    // Relasi ke User
     public function user()
     {
         return $this->belongsTo(User::class);

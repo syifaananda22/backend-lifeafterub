@@ -28,4 +28,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // 🔥 TAMBAHAN PENTING: RELASI KE PROFILE
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

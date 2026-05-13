@@ -1,32 +1,65 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Api\CareerController;
+use App\Http\Controllers\Api\SimulationController;
 
 /*
 |--------------------------------------------------------------------------
-| AUTH (PUBLIC)
+| AUTH
 |--------------------------------------------------------------------------
 */
 
-// REGISTER
 Route::post('/register', [AuthController::class, 'register']);
-
-// LOGIN
 Route::post('/login', [AuthController::class, 'login']);
 
 /*
 |--------------------------------------------------------------------------
-| PROFILE (PROTECTED - WAJIB LOGIN)
+| CAREER PUBLIC
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/fields', [CareerController::class, 'fields']);
+Route::get('/careers/{id}', [CareerController::class, 'careersByField']);
+Route::get('/career/{id}', [CareerController::class, 'detail']);
+Route::get('/career-search', [CareerController::class, 'search']);
+Route::get('/career-recommendation', [CareerController::class, 'recommendation']);
+
+/*
+|--------------------------------------------------------------------------
+| PROTECTED ROUTES
 |--------------------------------------------------------------------------
 */
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    // simpan / update profile
+    /*
+    | PROFILE
+    */
     Route::post('/profil', [ProfileController::class, 'store']);
-
-    // ambil profile user login
     Route::get('/profil', [ProfileController::class, 'show']);
+
+    /*
+    | HISTORY SIMULATION (FIXED)
+    */
+
+    Route::post('/history', [SimulationController::class, 'storeHistory']);
+    Route::get('/history', [SimulationController::class, 'getHistory']);
+    Route::delete('/history/{id}', [SimulationController::class, 'deleteHistory']);
+});
+
+/*
+|--------------------------------------------------------------------------
+| FALLBACK
+|--------------------------------------------------------------------------
+*/
+
+Route::fallback(function () {
+    return response()->json([
+        'success' => false,
+        'message' => 'API route not found'
+    ], 404);
 });
