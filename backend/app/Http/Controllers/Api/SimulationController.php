@@ -15,45 +15,44 @@ class SimulationController extends Controller
     */
 
     public function storeHistory(Request $request)
-    {
-        try {
+{
+    try {
+        $request->validate([
+            'career_id' => 'required',
+            'title' => 'required',
+        ]);
 
-            $request->validate([
-                'career_id' => 'required',
-                'title' => 'required',
-            ]);
-
-            // cek user login
-            if (!$request->user()) {
-
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Unauthorized'
-                ], 401);
-
-            }
-
-            $history = SimulationHistory::create([
-                'user_id' => $request->user()->id,
-                'career_id' => $request->career_id,
-                'title' => $request->title,
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'History berhasil disimpan',
-                'data' => $history
-            ]);
-
-        } catch (\Exception $e) {
-
+        if (!$request->user()) {
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage()
-            ], 500);
-
+                'message' => 'Unauthorized'
+            ], 401);
         }
+
+        $history = SimulationHistory::updateOrCreate(
+            [
+                'user_id' => $request->user()->id,
+                'career_id' => $request->career_id,
+            ],
+            [
+                'title' => $request->title,
+                'date' => now(),
+            ]
+        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'History berhasil disimpan',
+            'data' => $history
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+        ], 500);
     }
+}
 
     /*
     |--------------------------------------------------------------------------
@@ -62,31 +61,27 @@ class SimulationController extends Controller
     */
 
     public function getHistory(Request $request)
-    {
-        try {
+{
+    try {
+        $history = SimulationHistory::where(
+            'user_id',
+            $request->user()->id
+        )
+        ->orderBy('date', 'desc')
+        ->get();
 
-            $history = SimulationHistory::where(
-                'user_id',
-                $request->user()->id
-            )
-            ->latest()
-            ->get();
+        return response()->json([
+            'success' => true,
+            'data' => $history
+        ]);
 
-            return response()->json([
-                'success' => true,
-                'data' => $history
-            ]);
-
-        } catch (\Exception $e) {
-
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ], 500);
-
-        }
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+        ], 500);
     }
-
+}
     /*
     |--------------------------------------------------------------------------
     | DELETE HISTORY

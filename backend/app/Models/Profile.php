@@ -11,7 +11,8 @@ class Profile extends Model
         'nama',
         'fakultas',
         'prodi',
-        'tahun_masuk'
+        'tahun_masuk',
+        'foto',
     ];
 
     public function user()

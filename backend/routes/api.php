@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\CareerController;
 use App\Http\Controllers\Api\SimulationController;
+use App\Http\Controllers\Api\AlumniCareerController;
+use App\Http\Controllers\Api\CareerRecommendationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,19 +39,42 @@ Route::get('/career-recommendation', [CareerController::class, 'recommendation']
 Route::middleware('auth:sanctum')->group(function () {
 
     /*
+    |--------------------------------------------------------------------------
     | PROFILE
+    |--------------------------------------------------------------------------
     */
-    Route::post('/profil', [ProfileController::class, 'store']);
+
     Route::get('/profil', [ProfileController::class, 'show']);
+    Route::post('/profil', [ProfileController::class, 'store']);
+    Route::put('/profil/password', [ProfileController::class, 'changePassword']);
 
     /*
-    | HISTORY SIMULATION (FIXED)
+    |--------------------------------------------------------------------------
+    | HISTORY SIMULATION
+    |--------------------------------------------------------------------------
     */
 
     Route::post('/history', [SimulationController::class, 'storeHistory']);
     Route::get('/history', [SimulationController::class, 'getHistory']);
     Route::delete('/history/{id}', [SimulationController::class, 'deleteHistory']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | CAREER RECOMMENDATION
+    |--------------------------------------------------------------------------
+    */
+
+    Route::post('/career-recommendations', [CareerRecommendationController::class, 'recommend']);
 });
+
+ /*
+    |--------------------------------------------------------------------------
+    | ALUMNI CAREER
+    |--------------------------------------------------------------------------
+    */
+
+Route::get('/alumni-careers', [AlumniCareerController::class, 'index']);
+Route::get('/alumni-careers/stats', [AlumniCareerController::class, 'stats']);
 
 /*
 |--------------------------------------------------------------------------

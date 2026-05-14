@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SimulationHistory extends Model
+class CareerPreference extends Model
 {
     protected $fillable = [
         'user_id',
-        'career_id',
-        'title',
-        'date',
+        'minat',
+        'skill',
+        'gaya_kerja',
+        'industri',
     ];
 }
