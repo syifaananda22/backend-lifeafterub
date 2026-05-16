@@ -38,6 +38,7 @@ class AuthController extends Controller
             'user' => [
                 'id' => $user->id,
                 'email' => $user->email,
+                'role' => $user->role,
             ]
         ]);
     }
@@ -85,6 +86,7 @@ class AuthController extends Controller
             'user' => [
                 'id' => $user->id,
                 'email' => $user->email,
+                'role' => $user->role,
                 'nama' => $user->profile?->nama,
                 'prodi' => $user->profile?->prodi,
             ]

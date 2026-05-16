@@ -8,7 +8,14 @@ use App\Http\Controllers\Api\CareerController;
 use App\Http\Controllers\Api\SimulationController;
 use App\Http\Controllers\Api\AlumniCareerController;
 use App\Http\Controllers\Api\CareerRecommendationController;
-
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminAcademicController;
+use App\Http\Controllers\AdminCareerController;
+use App\Http\Controllers\AdminCareerFieldController;
+use App\Http\Controllers\AdminAlumniController;
+use App\Http\Controllers\AdminRecommendationController;
+use App\Http\Controllers\AdminActivityController;
 /*
 |--------------------------------------------------------------------------
 | AUTH
@@ -76,7 +83,39 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/alumni-careers', [AlumniCareerController::class, 'index']);
 Route::get('/alumni-careers/stats', [AlumniCareerController::class, 'stats']);
 
-/*
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
+
+Route::get('/admin/users', [AdminUserController::class, 'index']);
+Route::post('/admin/users', [AdminUserController::class, 'store']);
+Route::put('/admin/users/{id}', [AdminUserController::class, 'update']);
+Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroy']);
+
+Route::get('/admin/academic', [AdminAcademicController::class, 'index']);
+Route::post('/admin/academic', [AdminAcademicController::class, 'store']);
+Route::put('/admin/academic/{id}', [AdminAcademicController::class, 'update']);
+Route::delete('/admin/academic/{id}', [AdminAcademicController::class, 'destroy']);
+
+Route::get('/admin/careers', [AdminCareerController::class, 'index']);
+Route::post('/admin/careers', [AdminCareerController::class, 'store']);
+Route::put('/admin/careers/{id}', [AdminCareerController::class, 'update']);
+Route::delete('/admin/careers/{id}', [AdminCareerController::class, 'destroy']);
+
+Route::get('/admin/career-fields', [AdminCareerFieldController::class, 'index']);
+Route::post('/admin/career-fields', [AdminCareerFieldController::class, 'store']);
+Route::put('/admin/career-fields/{id}', [AdminCareerFieldController::class, 'update']);
+Route::delete('/admin/career-fields/{id}', [AdminCareerFieldController::class, 'destroy']);
+
+Route::get('/admin/alumni', [AdminAlumniController::class, 'index']);
+Route::post('/admin/alumni', [AdminAlumniController::class, 'store']);
+Route::put('/admin/alumni/{id}', [AdminAlumniController::class, 'update']);
+Route::delete('/admin/alumni/{id}', [AdminAlumniController::class, 'destroy']);
+
+Route::get('/admin/recommendations', [AdminRecommendationController::class, 'index']);
+Route::delete('/admin/recommendations/{id}', [AdminRecommendationController::class, 'destroy']);
+
+Route::get('/admin/activity', [AdminActivityController::class, 'index']);
+
+/*  
 |--------------------------------------------------------------------------
 | FALLBACK
 |--------------------------------------------------------------------------
