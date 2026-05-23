@@ -6,8 +6,7 @@ Backend Life After UB dibuat menggunakan Laravel sebagai REST API untuk mendukun
 ## Fitur
 - Authentication Login & Register
 - REST API Dashboard User & Admin
-- CRUD User, Karir, Alumni, dan Rekomendasi
-- Monitoring Aktivitas User
+- CRUD User, Karir, Alumni, dan Perusahaan Mitra UB
 
 ## Tools & Environment
 - Laravel
