@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 class AdminAcademicController extends Controller
 {
     public function index()
-    {
-        return response()->json(
-            Profile::with('user')
-                ->latest()
-                ->get()
-        );
-    }
+{
+    return response()->json(
+        Profile::with('user')
+            ->orderBy('id', 'asc')
+            ->get()
+    );
+}
 
     public function store(Request $request)
     {
